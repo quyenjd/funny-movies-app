@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "funny-movies-app": {
+      "hosting": {
+        "funny-movies-app": [
+          "funny-movies-app"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "funny-movies-app"
+  }
+}
