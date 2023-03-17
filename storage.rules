@@ -1,0 +1,18 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId} {
+      allow read: if true;
+
+      // Users can only modify their own profile.
+      allow write: if request.auth.uid == userId;
+    }
+
+    match /posts/{postId} {
+      allow read: if true;
+
+      // Posts can only be modified by their author.
+      allow write: if request.auth.uid == request.resource.data.author;
+    }
+  }
+}
