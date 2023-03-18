@@ -1,53 +1,50 @@
 <ng-container *ngIf="user$ | async as user">
-  <div class="my-4 sm:my-8 sm:p-2">
-    <div class="-m-2 flex flex-row flex-wrap justify-center">
-      <div class="m-2 flex-grow">
-        <fieldset class="rounded-sm border-2 border-fm-blue p-4">
-          <legend class="px-2 text-lg font-bold">Share a YouTube movie</legend>
-          <form
-            [formGroup]="shareForm"
-            (onSubmit)="share(user)"
-            class="flex flex-col">
-            <div
-              class="input-group"
-              [class.invalid]="
-                shareForm.get('title')?.touched &&
-                !shareForm.get('title')?.valid
-              ">
-              <label class="mr-2">Title *</label>
-              <input
-                type="text"
-                formControlName="title"
-                placeholder="Waka Waka (This Time for Africa)" />
-            </div>
-            <div
-              class="input-group"
-              [class.invalid]="
-                shareForm.get('youtubeUrl')?.touched &&
-                !shareForm.get('youtubeUrl')?.valid
-              ">
-              <label class="mr-2">YouTube URL *</label>
-              <input
-                type="text"
-                formControlName="youtubeUrl"
-                placeholder="https://youtu.be/pRpeEdMmmQ0" />
-            </div>
-            <div class="input-group">
-              <label class="mr-2">Description</label>
-              <textarea
-                formControlName="description"
-                rows="3"
-                placeholder="The official 2010 FIFA World Cup™ song."></textarea>
-            </div>
-            <button type="submit" class="secondary mt-2">Submit</button>
-          </form>
-        </fieldset>
-      </div>
-      <app-video-player
-        class="m-2 flex min-w-[18rem] max-w-[40rem] flex-grow basis-1/2 items-center xs:min-w-[24rem]"
-        [url]="
-          (shareForm.get('youtubeUrl')?.valueChanges | async) || ''
-        "></app-video-player>
+  <div class="-m-2 flex flex-row flex-wrap justify-center">
+    <div class="m-2 flex-grow">
+      <fieldset class="rounded-sm border-2 border-fm-blue p-4">
+        <legend class="px-2 text-lg font-bold">Share a YouTube movie</legend>
+        <form
+          [formGroup]="shareForm"
+          (onSubmit)="share(user)"
+          class="flex flex-col">
+          <div
+            class="input-group"
+            [class.invalid]="
+              shareForm.get('title')?.touched && !shareForm.get('title')?.valid
+            ">
+            <label class="mr-2">Title *</label>
+            <input
+              type="text"
+              formControlName="title"
+              placeholder="Waka Waka (This Time for Africa)" />
+          </div>
+          <div
+            class="input-group"
+            [class.invalid]="
+              shareForm.get('youtubeUrl')?.touched &&
+              !shareForm.get('youtubeUrl')?.valid
+            ">
+            <label class="mr-2">YouTube URL *</label>
+            <input
+              type="text"
+              formControlName="youtubeUrl"
+              placeholder="https://youtu.be/pRpeEdMmmQ0" />
+          </div>
+          <div class="input-group">
+            <label class="mr-2">Description</label>
+            <textarea
+              formControlName="description"
+              rows="3"
+              placeholder="The official 2010 FIFA World Cup™ song."></textarea>
+          </div>
+          <button type="submit" class="secondary mt-2">Submit</button>
+        </form>
+      </fieldset>
     </div>
+    <app-video-player
+      class="m-2 flex min-w-[18rem] max-w-[40rem] flex-grow basis-1/2 items-center xs:min-w-[24rem]"
+      [url]="
+        (shareForm.get('youtubeUrl')?.valueChanges | async) || ''
+      "></app-video-player>
   </div>
 </ng-container>
