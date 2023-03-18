@@ -16,14 +16,23 @@ import {
   getFirestore,
   connectFirestoreEmulator,
 } from '@angular/fire/firestore';
-import {
-  provideFunctions,
-  getFunctions,
-  connectFunctionsEmulator,
-} from '@angular/fire/functions';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { PostComponent } from './components/post/post.component';
+import { PostListingComponent } from './components/post-listing/post-listing.component';
+import { ShareFormComponent } from './components/share-form/share-form.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    FooterComponent,
+    PostComponent,
+    PostListingComponent,
+    ShareFormComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -43,13 +52,8 @@ import {
       }
       return firestore;
     }),
-    provideFunctions(() => {
-      const functions = getFunctions(undefined, 'australia-southeast1');
-      if (environment.development) {
-        connectFunctionsEmulator(functions, 'localhost', 5001);
-      }
-      return functions;
-    }),
+    FontAwesomeModule,
+    ReactiveFormsModule,
   ],
   providers: [ScreenTrackingService, UserTrackingService],
   bootstrap: [AppComponent],

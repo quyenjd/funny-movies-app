@@ -1,0 +1,75 @@
+<div class="flex flex-col sm:flex-row sm:justify-between">
+  <!-- Homepage icon -->
+  <div
+    class="prose mb-4 max-w-none flex-shrink-0 flex-grow text-center sm:mr-4 sm:mb-0 sm:flex-grow-0">
+    <h1
+      class="cursor-pointer font-indieFlower text-3xl md:text-4xl"
+      [routerLink]="['']">
+      <fa-icon [icon]="faHouseChimney" class="text-fm-red"></fa-icon> Funny
+      Movies
+    </h1>
+  </div>
+
+  <ng-container *ngIf="{ user: user$ | async } as _">
+    <!-- Login form -->
+    <ng-container *ngIf="!_.user">
+      <form
+        class="flex flex-grow flex-row items-center justify-center sm:flex-grow-0"
+        [formGroup]="loginForm"
+        (ngSubmit)="login()">
+        <input
+          type="text"
+          formControlName="email"
+          placeholder="email"
+          class="mr-2 w-28 md:w-36" />
+        <input
+          type="password"
+          formControlName="password"
+          placeholder="password"
+          class="mr-2 w-24 md:w-32" />
+        <button
+          class="whitespace-nowrap"
+          title="Login / Register"
+          type="submit">
+          <span class="hidden xs:inline-block">Login / Register</span>
+          <span class="inline-block xs:hidden"
+            ><fa-icon [icon]="faRightToBracket"></fa-icon
+          ></span>
+        </button>
+      </form>
+    </ng-container>
+
+    <!-- Logout form -->
+    <div
+      class="flex flex-grow flex-row flex-wrap items-center justify-center overflow-hidden sm:flex-grow-0 sm:flex-nowrap"
+      *ngIf="_.user as user">
+      <p
+        class="mr-2 mb-2 basis-full overflow-hidden text-ellipsis whitespace-nowrap sm:mb-0 sm:basis-auto">
+        Welcome
+        <span [title]="user.email">{{ user.email }}!</span>
+      </p>
+      <button
+        class="primary mr-2 whitespace-nowrap"
+        title="Share a video"
+        (click)="$event.preventDefault(); share()">
+        <span class="hidden xs:inline-block sm:hidden md:inline-block"
+          >Share a video</span
+        >
+        <span class="inline-block xs:hidden sm:inline-block md:hidden"
+          ><fa-icon [icon]="faShare"></fa-icon
+        ></span>
+      </button>
+      <button
+        class="whitespace-nowrap"
+        title="Logout"
+        (click)="$event.preventDefault(); logout()">
+        <span class="hidden xs:inline-block sm:hidden md:inline-block"
+          >Logout</span
+        >
+        <span class="inline-block xs:hidden sm:inline-block md:hidden"
+          ><fa-icon [icon]="faRightFromBracket"></fa-icon
+        ></span>
+      </button>
+    </div>
+  </ng-container>
+</div>

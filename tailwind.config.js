@@ -1,9 +1,30 @@
 module.exports = {
   prefix: '',
   content: ['./src/**/*.{html,ts}'],
+  important: true,
   darkMode: 'class', // or 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'fm-white': '#FFFAFA',
+        'fm-border': '#E5E4E2',
+        'fm-orange': '#FF9F1C',
+        'fm-red': '#E71D36',
+        'fm-green': '#2EC4B6',
+        'fm-black': '#011627',
+        'fm-blue': '#0070BB',
+      },
+      borderColor: {
+        DEFAULT: '#E5E4E2',
+      },
+      fontFamily: {
+        ubuntu: ["'Ubuntu', sans-serif"],
+        indieFlower: ["'Indie Flower', cursive"],
+      },
+      screens: {
+        xs: '480px',
+      },
+    },
   },
   variants: {
     extend: {},

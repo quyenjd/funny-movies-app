@@ -1,0 +1,27 @@
+button {
+  @apply relative z-0 inline-flex h-8 cursor-pointer touch-manipulation select-none items-center justify-center border-2 border-fm-black px-4 text-center;
+
+  &:before {
+    @apply absolute inset-0 -z-10 block bg-fm-white content-[''];
+  }
+
+  &:after {
+    @apply absolute inset-0 -top-0.5 -z-20 block bg-fm-black transition-transform content-[''];
+  }
+
+  &:hover:after {
+    @apply translate-x-1 translate-y-1;
+  }
+
+  &:active:before {
+    @apply bg-fm-border;
+  }
+
+  &.primary {
+    @apply text-white;
+
+    &:before {
+      @apply bg-fm-blue;
+    }
+  }
+}

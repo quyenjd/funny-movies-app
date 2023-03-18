@@ -1,3 +1,16 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+@import 'styles/buttons';
+@import 'styles/forms';
+@import 'styles/layout';
+
+html,
+body {
+  @apply h-full min-w-[320px] bg-fm-white;
+}
+
+* {
+  @apply box-border font-ubuntu;
+}

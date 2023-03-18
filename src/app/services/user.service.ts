@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   Auth,
+  AuthError,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
@@ -42,27 +43,49 @@ export class UserService {
     }).pipe(map(user => (user || null) as UserInterface | null));
   }
 
-  async login(email: string, password: string) {
-    return signInWithEmailAndPassword(this.auth, email, password);
+  async loginOrRegister(email: string, password: string) {
+    try {
+      await signInWithEmailAndPassword(this.auth, email, password);
+      return 'Logged in successfully.';
+    } catch (err) {
+      const error = err as AuthError;
+
+      if (error.code === 'auth/user-not-found') {
+        // If login fails because the user does not exist, register it.
+        try {
+          const user = await createUserWithEmailAndPassword(
+            this.auth,
+            email,
+            password
+          );
+
+          // Prepare user data after signing up.
+          await setDoc(
+            doc(collection(this.firestore, 'users'), user.user.uid),
+            {
+              email,
+              createdAt: serverTimestamp(),
+              posts: [],
+              votes: [],
+            }
+          );
+
+          return 'Registered successfully.';
+        } catch (err) {
+          return (err as AuthError).message;
+        }
+      }
+
+      return error.message;
+    }
   }
 
   async logout() {
-    return signOut(this.auth);
-  }
-
-  async signup(email: string, password: string) {
-    return createUserWithEmailAndPassword(this.auth, email, password).then(
-      async user => {
-        // Prepare user data after signing up.
-        await setDoc(doc(collection(this.firestore, 'users'), user.user.uid), {
-          email,
-          createdAt: serverTimestamp(),
-          posts: [],
-          votes: [],
-        });
-
-        return user;
-      }
-    );
+    try {
+      await signOut(this.auth);
+      return 'Logged out successfully.';
+    } catch (err) {
+      return (err as AuthError).message;
+    }
   }
 }
