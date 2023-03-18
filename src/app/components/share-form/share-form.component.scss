@@ -1,0 +1,13 @@
+:host {
+  .input-group {
+    @apply mb-4 flex flex-col;
+
+    label {
+      @apply text-sm;
+    }
+
+    &.invalid label {
+      @apply text-fm-red;
+    }
+  }
+}

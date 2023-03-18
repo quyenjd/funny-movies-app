@@ -23,6 +23,7 @@ import { PostListingComponent } from './components/post-listing/post-listing.com
 import { ShareFormComponent } from './components/share-form/share-form.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ReactiveFormsModule } from '@angular/forms';
+import { VideoPlayerComponent } from './components/video-player/video-player.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     PostComponent,
     PostListingComponent,
     ShareFormComponent,
+    VideoPlayerComponent,
   ],
   imports: [
     BrowserModule,

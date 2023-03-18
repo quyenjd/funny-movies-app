@@ -14,14 +14,14 @@ import {
   setDoc,
 } from '@angular/fire/firestore';
 import { doc } from '@firebase/firestore';
-import { BehaviorSubject, map } from 'rxjs';
+import { map, ReplaySubject } from 'rxjs';
 import { UserInterface } from '../model/user.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private currentUser = new BehaviorSubject(null as UserInterface | null);
+  private currentUser = new ReplaySubject<UserInterface | null>(1);
 
   get currentUser$() {
     return this.currentUser.asObservable();

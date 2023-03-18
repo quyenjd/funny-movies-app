@@ -4,7 +4,8 @@
     class="prose mb-4 max-w-none flex-shrink-0 flex-grow text-center sm:mr-4 sm:mb-0 sm:flex-grow-0">
     <h1
       class="cursor-pointer font-indieFlower text-3xl md:text-4xl"
-      [routerLink]="['']">
+      [routerLink]="['']"
+      title="Go to Homepage">
       <fa-icon [icon]="faHouseChimney" class="text-fm-red"></fa-icon> Funny
       Movies
     </h1>
@@ -44,16 +45,18 @@
       class="flex flex-grow flex-row flex-wrap items-center justify-center overflow-hidden sm:flex-grow-0 sm:flex-nowrap"
       *ngIf="_.user as user">
       <p
-        class="mr-2 mb-2 basis-full overflow-hidden text-ellipsis whitespace-nowrap sm:mb-0 sm:basis-auto">
+        class="mr-2 mb-2 basis-full overflow-hidden text-ellipsis whitespace-nowrap text-center sm:mb-0 sm:basis-auto">
         Welcome
         <span [title]="user.email">{{ user.email }}!</span>
       </p>
       <button
+        type="button"
         class="primary mr-2 whitespace-nowrap"
-        title="Share a video"
-        (click)="$event.preventDefault(); share()">
+        title="Share a movie"
+        [routerLink]="['', 'share']"
+        routerLinkActive="active">
         <span class="hidden xs:inline-block sm:hidden md:inline-block"
-          >Share a video</span
+          >Share a movie</span
         >
         <span class="inline-block xs:hidden sm:inline-block md:hidden"
           ><fa-icon [icon]="faShare"></fa-icon

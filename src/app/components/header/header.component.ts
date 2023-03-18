@@ -48,8 +48,4 @@ export class HeaderComponent {
       alert(await this.userService.logout());
     }
   }
-
-  async share() {
-    await this.router.navigate(['', 'share']);
-  }
 }

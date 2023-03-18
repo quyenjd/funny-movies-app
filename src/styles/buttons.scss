@@ -13,7 +13,8 @@ button {
     @apply translate-x-1 translate-y-1;
   }
 
-  &:active:before {
+  &:active:before,
+  &.active:before {
     @apply bg-fm-border;
   }
 
@@ -22,6 +23,22 @@ button {
 
     &:before {
       @apply bg-fm-blue;
+    }
+
+    &:active:before,
+    &.active:before {
+      @apply bg-fm-green;
+    }
+  }
+
+  &.secondary {
+    &:before {
+      @apply bg-fm-yellow;
+    }
+
+    &:active:before,
+    &.active:before {
+      @apply bg-fm-orange;
     }
   }
 }
