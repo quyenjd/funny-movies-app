@@ -24,6 +24,7 @@ import { ShareFormComponent } from './components/share-form/share-form.component
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ReactiveFormsModule } from '@angular/forms';
 import { VideoPlayerComponent } from './components/video-player/video-player.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { VideoPlayerComponent } from './components/video-player/video-player.com
     PostListingComponent,
     ShareFormComponent,
     VideoPlayerComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,

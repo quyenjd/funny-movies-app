@@ -9,11 +9,13 @@ import { YoutubeService } from '@app/services/youtube.service';
 })
 export class VideoPlayerComponent {
   embedUrl?: SafeResourceUrl;
+  loading = true;
 
   @Input() set url(value: string) {
     this.embedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
       this.youtubeService.toEmbedLink(value).url
     );
+    this.loading = true;
   }
 
   constructor(

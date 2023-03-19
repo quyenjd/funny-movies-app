@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserInterface } from '@app/model/user.interface';
 import { PostService } from '@app/services/post.service';
 import { UserService } from '@app/services/user.service';
@@ -18,7 +19,8 @@ export class ShareFormComponent {
 
   constructor(
     private userService: UserService,
-    private postService: PostService
+    private postService: PostService,
+    private router: Router
   ) {
     this.user$ = this.userService.currentUser$;
     this.shareForm = new FormGroup({
@@ -29,8 +31,6 @@ export class ShareFormComponent {
   }
 
   async share(user: UserInterface) {
-    console.log(user);
-
     if (this.shareForm.valid) {
       this.submitting = true;
 
@@ -48,6 +48,8 @@ export class ShareFormComponent {
       } finally {
         this.submitting = false;
         this.shareForm.disable();
+
+        this.router.navigate(['']);
       }
     }
   }

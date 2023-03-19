@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { UserInterface } from '@app/model/user.interface';
 import { UserService } from '@app/services/user.service';
 import {
@@ -24,11 +23,11 @@ export class HeaderComponent {
   faShare = faShare;
   loginForm: FormGroup;
 
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private userService: UserService) {
     this.user$ = this.userService.currentUser$;
     this.loginForm = new FormGroup({
-      email: new FormControl('hello@hello', [Validators.required]),
-      password: new FormControl('hello@hello', [Validators.required]),
+      email: new FormControl(null, [Validators.required]),
+      password: new FormControl(null, [Validators.required]),
     });
   }
 

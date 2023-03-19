@@ -13,6 +13,9 @@ service cloud.firestore {
 
       // Posts can only be modified by their author.
       allow write: if request.auth.uid == request.resource.data.author;
+      
+      // Posts can be voted by users.
+      allow write: if request.auth != null && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['votes']);
     }
   }
 }

@@ -12,15 +12,15 @@ module.exports = {
         'fm-green': '#3EB489',
         'fm-black': '#011627',
         'fm-blue': '#0070BB',
-        'fm-yellow': '#FADFAD',
+        'fm-yellow': '#FFEFD5',
         'fm-gray': '#E5E4E2',
       },
       borderColor: {
         DEFAULT: '#E5E4E2',
       },
       fontFamily: {
+        itim: ["'Itim', cursive"],
         ubuntu: ["'Ubuntu', sans-serif"],
-        indieFlower: ["'Indie Flower', cursive"],
       },
       screens: {
         xs: '480px',

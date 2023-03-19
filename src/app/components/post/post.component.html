@@ -24,7 +24,7 @@
           } as myVote">
           <div class="my-2">
             <div
-              class="inline-flex flex-row rounded-md border-2 text-base md:text-lg">
+              class="inline-flex flex-row overflow-hidden rounded-md border-2 text-base md:text-lg">
               <div
                 class="vote-button border-r-2"
                 [class.disabled]="!user.user"
@@ -41,7 +41,12 @@
                   class="upvote ml-1"
                   [class.active]="myVote.vote === 'upvote'"
                   [class.clicked]="upvoteClicked">
-                  <fa-icon [icon]="faThumbsUp"></fa-icon>
+                  <fa-icon
+                    [icon]="
+                      myVote.vote === 'upvote' || upvoteClicked
+                        ? fasThumbsUp
+                        : farThumbsUp
+                    "></fa-icon>
                 </span>
               </div>
 
@@ -61,13 +66,18 @@
                   class="downvote ml-1"
                   [class.active]="myVote.vote === 'downvote'"
                   [class.clicked]="downvoteClicked">
-                  <fa-icon [icon]="faThumbsDown"></fa-icon>
+                  <fa-icon
+                    [icon]="
+                      myVote.vote === 'downvote' || downvoteClicked
+                        ? fasThumbsDown
+                        : farThumbsDown
+                    "></fa-icon>
                 </span>
               </div>
 
               <div
                 *ngIf="user.user?.uid === post.author"
-                class="vote-button rounded-tr-md rounded-br-md border-l-2 bg-fm-red text-fm-white"
+                class="vote-button border-l-2 bg-fm-red text-fm-white"
                 (click)="removePost(post)"
                 title="Remove">
                 <fa-icon [icon]="faTrash"></fa-icon>
@@ -81,8 +91,10 @@
         </ng-container>
       </ng-container>
 
-      <p class="text-sm font-bold md:text-base">Description:</p>
-      <p class="text-sm line-clamp-3 md:text-base">{{ post.description }}</p>
+      <ng-container *ngIf="post.description">
+        <p class="text-sm font-bold md:text-base">Description:</p>
+        <p class="text-sm line-clamp-3 md:text-base">{{ post.description }}</p>
+      </ng-container>
     </div>
   </div>
 </ng-container>

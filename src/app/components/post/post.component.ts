@@ -4,8 +4,12 @@ import { UserInterface } from '@app/model/user.interface';
 import { PostService } from '@app/services/post.service';
 import { UserService } from '@app/services/user.service';
 import {
-  faThumbsDown,
-  faThumbsUp,
+  faThumbsDown as farThumbsDown,
+  faThumbsUp as farThumbsUp,
+} from '@fortawesome/free-regular-svg-icons';
+import {
+  faThumbsDown as fasThumbsDown,
+  faThumbsUp as fasThumbsUp,
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 import { lastValueFrom, Observable, timer } from 'rxjs';
@@ -19,8 +23,10 @@ export class PostComponent {
   user$: Observable<UserInterface | null>;
   author$?: Observable<UserInterface | null>;
   private _post?: PostInterface;
-  faThumbsUp = faThumbsUp;
-  faThumbsDown = faThumbsDown;
+  farThumbsDown = farThumbsDown;
+  farThumbsUp = farThumbsUp;
+  fasThumbsDown = fasThumbsDown;
+  fasThumbsUp = fasThumbsUp;
   faTrash = faTrash;
   upvoteClicked = false;
   downvoteClicked = false;
@@ -64,22 +70,16 @@ export class PostComponent {
     user: UserInterface,
     post: PostInterface
   ) {
-    let afterAnimationDone: Promise<void>;
-
     if (type === 'upvote') {
       this.upvoteClicked = true;
-
-      afterAnimationDone = lastValueFrom(timer(1000)).then(() => {
-        this.upvoteClicked = false;
-      });
+      await lastValueFrom(timer(1000));
+      this.upvoteClicked = false;
     } else {
       this.downvoteClicked = true;
-      afterAnimationDone = lastValueFrom(timer(500)).then(() => {
-        this.downvoteClicked = false;
-      });
+      await lastValueFrom(timer(500));
+      this.downvoteClicked = false;
     }
 
-    await afterAnimationDone;
     await this.postService.addVote(post.id, user.uid, type);
   }
 

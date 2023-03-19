@@ -1,8 +1,9 @@
 <ng-container *ngIf="user$ | async as user">
   <div class="-m-2 flex flex-row flex-wrap justify-center">
     <div class="m-2 flex-grow">
-      <fieldset class="rounded-sm border-2 border-fm-blue p-4">
+      <fieldset class="rounded-sm border-2 border-fm-green p-4">
         <legend class="px-2 text-lg font-bold">Share a YouTube movie</legend>
+
         <form
           [formGroup]="shareForm"
           (ngSubmit)="share(user)"
@@ -18,6 +19,7 @@
               formControlName="title"
               placeholder="Waka Waka (This Time for Africa)" />
           </div>
+
           <div
             class="input-group"
             [class.invalid]="
@@ -30,6 +32,7 @@
               formControlName="youtubeUrl"
               placeholder="https://youtu.be/pRpeEdMmmQ0" />
           </div>
+
           <div class="input-group">
             <label class="mr-2">Description</label>
             <textarea
@@ -37,7 +40,9 @@
               rows="3"
               placeholder="The official 2010 FIFA World Cup™ song."></textarea>
           </div>
+
           <p class="text-sm" *ngIf="submitMessage">{{ submitMessage }}</p>
+
           <button
             type="submit"
             class="secondary mt-2"
@@ -47,6 +52,7 @@
         </form>
       </fieldset>
     </div>
+
     <app-video-player
       class="m-2 flex min-w-[18rem] max-w-[30rem] flex-grow basis-1/2 items-center xs:min-w-[24rem]"
       [url]="
