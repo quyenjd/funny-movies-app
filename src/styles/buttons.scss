@@ -15,7 +15,7 @@ button {
 
   &:active:before,
   &.active:before {
-    @apply bg-fm-border;
+    @apply bg-fm-gray;
   }
 
   &.primary {

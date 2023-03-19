@@ -7,13 +7,13 @@ module.exports = {
     extend: {
       colors: {
         'fm-white': '#FFFAFA',
-        'fm-border': '#E5E4E2',
         'fm-orange': '#FF9966',
         'fm-red': '#E71D36',
         'fm-green': '#3EB489',
         'fm-black': '#011627',
         'fm-blue': '#0070BB',
         'fm-yellow': '#FADFAD',
+        'fm-gray': '#E5E4E2',
       },
       borderColor: {
         DEFAULT: '#E5E4E2',

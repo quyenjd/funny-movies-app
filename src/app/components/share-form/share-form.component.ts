@@ -13,6 +13,8 @@ import { Observable } from 'rxjs';
 export class ShareFormComponent {
   user$: Observable<UserInterface | null>;
   shareForm: FormGroup;
+  submitting = false;
+  submitMessage = '';
 
   constructor(
     private userService: UserService,
@@ -27,13 +29,26 @@ export class ShareFormComponent {
   }
 
   async share(user: UserInterface) {
+    console.log(user);
+
     if (this.shareForm.valid) {
-      await this.postService.createPost(
-        user.uid,
-        this.shareForm.get('title')!.value || '',
-        this.shareForm.get('youtubeUrl')!.value || '',
-        this.shareForm.get('description')!.value || ''
-      );
+      this.submitting = true;
+
+      try {
+        await this.postService.createPost(
+          user.uid,
+          this.shareForm.get('title')!.value || '',
+          this.shareForm.get('youtubeUrl')!.value || '',
+          this.shareForm.get('description')!.value || ''
+        );
+
+        this.submitMessage = 'Your movie has been shared successfully.';
+      } catch (err) {
+        this.submitMessage = (err as Error).message;
+      } finally {
+        this.submitting = false;
+        this.shareForm.disable();
+      }
     }
   }
 }

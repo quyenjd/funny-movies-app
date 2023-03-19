@@ -1,1 +1,88 @@
-<p>post works!</p>
+<ng-container *ngIf="post">
+  <div class="mx-auto flex max-w-[30rem] flex-col sm:max-w-none sm:flex-row">
+    <div class="mb-4 max-w-[30rem] sm:mb-0 sm:mr-8 sm:basis-1/2">
+      <div class="aspect-h-9 aspect-w-16">
+        <app-video-player [url]="post.youtubeUrl"></app-video-player>
+      </div>
+    </div>
+
+    <div class="flex flex-col sm:basis-1/2">
+      <h2 class="mb-2 text-lg font-bold text-fm-blue md:text-xl">
+        {{ post.title }}
+      </h2>
+
+      <p class="text-sm">{{ post.createdAt.toDate() | date : 'medium' }}</p>
+
+      <ng-container *ngIf="author$ | async as author">
+        <p class="text-sm md:text-base">Shared by: {{ author.email }}.</p>
+      </ng-container>
+
+      <ng-container *ngIf="{ user: user$ | async } as user">
+        <ng-container
+          *ngIf="{
+            vote: user.user ? getMyVote(user.user, post.votes) : null
+          } as myVote">
+          <div class="my-2">
+            <div
+              class="inline-flex flex-row rounded-md border-2 text-base md:text-lg">
+              <div
+                class="vote-button border-r-2"
+                [class.disabled]="!user.user"
+                (click)="
+                  user.user
+                    ? myVote.vote !== 'upvote'
+                      ? vote('upvote', user.user, post)
+                      : unvote('upvote', user.user, post)
+                    : null
+                "
+                title="Upvote">
+                {{ countVotes(post.votes, 'upvote') }}
+                <span
+                  class="upvote ml-1"
+                  [class.active]="myVote.vote === 'upvote'"
+                  [class.clicked]="upvoteClicked">
+                  <fa-icon [icon]="faThumbsUp"></fa-icon>
+                </span>
+              </div>
+
+              <div
+                class="vote-button"
+                [class.disabled]="!user.user"
+                (click)="
+                  user.user
+                    ? myVote.vote !== 'downvote'
+                      ? vote('downvote', user.user, post)
+                      : unvote('downvote', user.user, post)
+                    : null
+                "
+                title="Downvote">
+                {{ countVotes(post.votes, 'downvote') }}
+                <span
+                  class="downvote ml-1"
+                  [class.active]="myVote.vote === 'downvote'"
+                  [class.clicked]="downvoteClicked">
+                  <fa-icon [icon]="faThumbsDown"></fa-icon>
+                </span>
+              </div>
+
+              <div
+                *ngIf="user.user?.uid === post.author"
+                class="vote-button rounded-tr-md rounded-br-md border-l-2 bg-fm-red text-fm-white"
+                (click)="removePost(post)"
+                title="Remove">
+                <fa-icon [icon]="faTrash"></fa-icon>
+              </div>
+            </div>
+
+            <span class="ml-2 text-sm text-fm-red" *ngIf="!user.user">
+              Please login to vote this movie.
+            </span>
+          </div>
+        </ng-container>
+      </ng-container>
+
+      <p class="text-sm font-bold md:text-base">Description:</p>
+      <p class="text-sm line-clamp-3 md:text-base">{{ post.description }}</p>
+    </div>
+  </div>
+</ng-container>

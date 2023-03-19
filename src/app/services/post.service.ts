@@ -4,6 +4,7 @@ import {
   arrayRemove,
   arrayUnion,
   collection,
+  collectionData,
   deleteDoc,
   doc,
   docData,
@@ -11,19 +12,36 @@ import {
   serverTimestamp,
   updateDoc,
 } from '@angular/fire/firestore';
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { PostInterface } from '../model/post.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PostService {
-  constructor(private firestore: Firestore) {}
+  readonly allPosts$: Observable<PostInterface[]>;
+
+  constructor(private firestore: Firestore) {
+    // Sort all posts by their creation time (latest first).
+    this.allPosts$ = collectionData(collection(this.firestore, 'posts'), {
+      idField: 'id',
+    }).pipe(
+      map(posts =>
+        posts
+          .map(post => post as PostInterface)
+          .sort((a, b) => b.createdAt.toMillis() - a.createdAt.toMillis())
+      )
+    );
+  }
 
   getPost(id: string) {
-    return docData(doc(collection(this.firestore, 'posts'), id), {
-      idField: 'id',
-    }).pipe(map(post => (post || null) as PostInterface | null));
+    return this.allPosts$.pipe(
+      map(
+        posts =>
+          (posts.filter(post => post.id === id)[0] ||
+            null) as PostInterface | null
+      )
+    );
   }
 
   async createPost(
@@ -46,10 +64,6 @@ export class PostService {
     await updateDoc(doc(collection(this.firestore, 'users'), userId), {
       posts: arrayUnion(ref.id),
     });
-
-    return docData(ref, { idField: 'id' }).pipe(
-      map(post => (post || null) as PostInterface | null)
-    );
   }
 
   async removePost(post: PostInterface) {

@@ -1,1 +1,18 @@
-<p>post-listing works!</p>
+<ng-template #loadingPosts>
+  <p class="text-center">Loading shared movies...</p>
+</ng-template>
+
+<ng-template #noPost>
+  <p class="text-center">Log in and share yours now!</p>
+</ng-template>
+
+<ng-container *ngIf="posts$ | async as posts; else loadingPosts">
+  <ng-container *ngIf="posts.length > 0; else noPost">
+    <div class="-my-4 flex flex-col">
+      <app-post
+        [post]="post"
+        *ngFor="let post of posts"
+        class="my-4"></app-post>
+    </div>
+  </ng-container>
+</ng-container>

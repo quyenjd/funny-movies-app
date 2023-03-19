@@ -1,0 +1,78 @@
+:host {
+  @keyframes upvote {
+    15% {
+      transform: scale(1.05);
+    }
+
+    25% {
+      transform: scale(1.25) translateY(2px);
+    }
+
+    35% {
+      transform: scale(1.25) translateY(-2px) rotateZ(-10deg);
+    }
+
+    45% {
+      transform: scale(1.25) translateY(-10px) rotateZ(-5deg);
+    }
+
+    60% {
+      transform: scale(1.25) translateY(4px) rotateZ(2deg);
+    }
+
+    70% {
+      transform: scale(1.25) translateY(-4px) rotateZ(10deg);
+    }
+
+    77% {
+      transform: scale(1.25) translateY(1px);
+    }
+
+    83% {
+      transform: scale(1.25) translateY(-1px);
+    }
+
+    92% {
+      transform: scale(0.9);
+    }
+  }
+
+  @keyframes downvote {
+    40% {
+      transform: rotateZ(-15deg) scale(1.25);
+    }
+
+    70% {
+      transform: rotateZ(15deg) scale(1.25);
+    }
+
+    85% {
+      transform: rotateZ(-5deg) scale(0.95);
+    }
+  }
+
+  .upvote,
+  .downvote {
+    @apply inline-block origin-[50%] transition-colors;
+
+    &.active {
+      @apply text-fm-blue;
+    }
+  }
+
+  .upvote.clicked {
+    @apply animate-[upvote_1s_ease-out];
+  }
+
+  .downvote.clicked {
+    @apply animate-[downvote_0.5s_ease-out];
+  }
+
+  .vote-button {
+    @apply cursor-pointer select-none px-4 py-1 hover:bg-fm-gray;
+
+    &.disabled {
+      @apply cursor-not-allowed bg-fm-gray;
+    }
+  }
+}

@@ -5,7 +5,7 @@
         <legend class="px-2 text-lg font-bold">Share a YouTube movie</legend>
         <form
           [formGroup]="shareForm"
-          (onSubmit)="share(user)"
+          (ngSubmit)="share(user)"
           class="flex flex-col">
           <div
             class="input-group"
@@ -37,12 +37,18 @@
               rows="3"
               placeholder="The official 2010 FIFA World Cup™ song."></textarea>
           </div>
-          <button type="submit" class="secondary mt-2">Submit</button>
+          <p class="text-sm" *ngIf="submitMessage">{{ submitMessage }}</p>
+          <button
+            type="submit"
+            class="secondary mt-2"
+            [disabled]="submitting ? true : null">
+            {{ submitting ? 'Submitting...' : 'Submit' }}
+          </button>
         </form>
       </fieldset>
     </div>
     <app-video-player
-      class="m-2 flex min-w-[18rem] max-w-[40rem] flex-grow basis-1/2 items-center xs:min-w-[24rem]"
+      class="m-2 flex min-w-[18rem] max-w-[30rem] flex-grow basis-1/2 items-center xs:min-w-[24rem]"
       [url]="
         (shareForm.get('youtubeUrl')?.valueChanges | async) || ''
       "></app-video-player>
