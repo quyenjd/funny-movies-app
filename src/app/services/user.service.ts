@@ -28,7 +28,7 @@ export class UserService {
   }
 
   constructor(private auth: Auth, private firestore: Firestore) {
-    this.auth.onAuthStateChanged(user => {
+    this.auth.onIdTokenChanged(user => {
       if (user) {
         this.getUser(user.uid).subscribe(this.currentUser);
       } else {

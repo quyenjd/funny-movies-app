@@ -23,7 +23,9 @@ describe('FooterComponent', () => {
 
   it('should include current year', () => {
     expect(
-      fixture.nativeElement.innerHTML.includes('' + new Date().getFullYear())
+      fixture.debugElement.nativeElement.innerText.includes(
+        '' + new Date().getFullYear()
+      )
     );
   });
 });

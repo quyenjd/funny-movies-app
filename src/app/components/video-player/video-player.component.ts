@@ -8,14 +8,17 @@ import { YoutubeService } from '@app/services/youtube.service';
   styleUrls: ['./video-player.component.scss'],
 })
 export class VideoPlayerComponent {
+  private _embedUrl?: string;
   embedUrl?: SafeResourceUrl;
   loading = true;
 
   @Input() set url(value: string) {
-    this.embedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-      this.youtubeService.toEmbedLink(value).url
-    );
-    this.loading = true;
+    const embedUrl = this.youtubeService.toEmbedLink(value).url;
+    if (this._embedUrl !== embedUrl) {
+      this.embedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
+      this._embedUrl = embedUrl;
+      this.loading = true;
+    }
   }
 
   constructor(

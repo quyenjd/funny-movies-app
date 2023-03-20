@@ -11,7 +11,9 @@
         {{ post.title }}
       </h2>
 
-      <p class="text-sm">{{ post.createdAt.toDate() | date : 'medium' }}</p>
+      <p class="text-xs md:text-sm">
+        {{ post.createdAt.toDate() | date : 'medium' }}
+      </p>
 
       <ng-container *ngIf="author$ | async as author">
         <p class="text-sm md:text-base">Shared by: {{ author.email }}.</p>

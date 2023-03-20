@@ -64,6 +64,8 @@ export class PostService {
     await updateDoc(doc(collection(this.firestore, 'users'), userId), {
       posts: arrayUnion(ref.id),
     });
+
+    return ref.id;
   }
 
   async removePost(post: PostInterface) {

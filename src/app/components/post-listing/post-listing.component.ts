@@ -14,4 +14,8 @@ export class PostListingComponent {
   constructor(private postService: PostService) {
     this.posts$ = this.postService.allPosts$;
   }
+
+  trackPost(index: number, post: PostInterface) {
+    return post.id;
+  }
 }

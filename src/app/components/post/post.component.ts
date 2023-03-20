@@ -36,10 +36,11 @@ export class PostComponent {
   }
 
   @Input() set post(value: PostInterface | undefined) {
-    if (value) {
-      this._post = value;
+    if (value && value.author !== this.post?.author) {
       this.author$ = this.userService.getUser(value.author);
     }
+
+    this._post = value;
   }
 
   constructor(

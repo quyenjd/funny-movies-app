@@ -3,7 +3,7 @@ input[type='text'],
 input[type='number'],
 input[type='password'],
 textarea {
-  @apply border-fm-gray h-8 w-full border-2 px-2 text-base placeholder-gray-400 focus:border-fm-green focus:outline-none focus:ring-0;
+  @apply h-8 w-full border-2 border-fm-gray px-2 text-base placeholder-gray-400 focus:border-fm-green focus:outline-none focus:ring-0;
 
   &.ng-invalid.ng-touched {
     @apply border-fm-red;
